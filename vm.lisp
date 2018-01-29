@@ -608,7 +608,7 @@
 	(if (get_debug nom)
 	    (progn 
 	      (print "----------------------------")
-	      (print "expressionession :" )
+	      (print "expression :" )
 	      (princ (get_memoire nom (get_registre nom 'CO)))))
 
 	(eval_vm nom (get_memoire nom (get_registre nom 'CO))))
