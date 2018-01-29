@@ -258,7 +258,7 @@
 
 (defun INCR_vm (nom registre)
   (if (not (registrep registre))
-      (error "[INCR_vm] INCR seulement pour les registres")
+      (error "[Erreur INCR] Ne s'applque que sur les registres")
     (set_registre nom registre (+ (get_registre nom registre) 1)))
   (set_registre nom 'CO (- (get_registre nom 'CO) 1)))
 
@@ -268,14 +268,14 @@
 
 (defun DECR_vm (nom registre)
   (if (not (registrep registre))
-      (error "[DECR_vm] DECR seulement pour les registres")
+      (error "[Erreur DECR] Ne s'applique que sur les registres")
     (set_registre nom registre (- (get_registre nom registre) 1)))
   (set_registre nom 'CO (- (get_registre nom 'CO) 1)))
 
 
 (defun PUSH_vm ( nom registre )
   (if (= (get_registre nom 'SP) (get_registre nom 'CO))
-      (error "[PUSH_vm] Erreur le code se trouve sur la pile")
+      (error "[Erreur PUSH] Incrémentation impossble")
     (prog1
       (set_memoire nom (get_registre nom 'SP) (get_registre nom registre))
       (set_registre nom 'SP (+ (get_registre nom 'SP) 1))
@@ -284,7 +284,7 @@
 
 (defun POP_vm ( nom registre )
   (if (= (get_registre nom 'SP) (get_registre nom 'FP))
-      (error "[POP_vm] Implacesible de dépiler")
+      (error "[Erreur POP] Dépilement impossible")
     (progn 
       (set_registre nom 'SP      (- (get_registre nom 'SP) 1))
       (set_registre nom registre ( get_memoire nom (get_registre nom 'SP)))
@@ -611,34 +611,7 @@
 	      (print "expressionession :" )
 	      (princ (get_memoire nom (get_registre nom 'CO)))))
 
-	(eval_vm nom (get_memoire nom (get_registre nom 'CO)))
-      
-	(if (get_debug nom)
-	    (progn 
-	      (print "Valeur de R0 :" )
-	      (princ (get_registre nom 'R0))
-	      (print "Valeur de R1 :" )
-	      (princ (get_registre nom 'R1))
-	      (print "Valeur de R2 :" )
-	      (princ (get_registre nom 'R2))
-	      (print "Valeur de SP :" )
-	      (princ (get_registre nom 'SP))
-	      (print "Valeur de FP :" )
-	      (princ (get_registre nom 'FP))
-	      (print "Valeur de FEQ :" )
-	      (princ (get_registre nom 'FEQ))
-	      (print "Valeur de FLT :" )
-	      (princ (get_registre nom 'FLT))
-	      (print "Valeur de FGT :" )
-	      (princ (get_registre nom 'FGT))
-	      (print "Valeur de CO :" )
-	      (princ (get_registre nom 'CO))
-	      (print "Valeur de place_libre_suiv :" )
-	      (princ (get_registre nom 'place_libre_suiv))
-	      (affiche_vm nom 0 (get_registre nom 'SP))
-	      (print "----------------------------")
-	      (read-char)
-	      )))
+	(eval_vm nom (get_memoire nom (get_registre nom 'CO))))
 
   (if (EQL (get_etat nom) nil)
       (progn
