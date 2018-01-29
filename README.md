@@ -2,8 +2,8 @@
 Compilateur et Générateur VM
 # Execution du compilateur
 1. (load "compilateur.lisp")
-2. (compile '(defun fibo (n) (cond ((= n 0) 0) ((= n 1) 1) (m ( + (fibo1 (- n 1)) (fibo1 (- n 2)))))))
-3. (compile '(fibo 6))
+2. (compiler '(defun fibo (n) (cond ((= n 0) 0) ((= n 1) 1) (m ( + (fibo1 (- n 1)) (fibo1 (- n 2)))))))
+3. (compiler '(fibo 6))
 # Execution de la VM
 1. (load "vm.lisp")
 2. (make_vm 'essai 1048576)
